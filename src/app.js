@@ -1,8 +1,12 @@
 import express from "express";
+import authRouter from "./routes/auth.route.js"
 
 const app = express();
 
 app.use(express.json());
+
+//Routes
+app.use("/votely/api/v1/auth/signup", authRouter)
 
 app.get("/votely/api/v1/health", (req, res) => {
 	res.status(200).json({ msg: "OK!" });

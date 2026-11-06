@@ -8,11 +8,11 @@ async function nextUserId(role) {
 		.collection("counters")
 		.findOneAndUpdate(
 			{ _id: prefix }, // separate counter per prefix
-			{ $inc: { seq: 1 } },
+			{ $inc: { count: 1 } },
 			{ returnDocument: "after", upsert: true },
 		);
 	const doc = res.value ?? res; // driver v6+ returns the doc directly
-	const n = String(doc.seq).padStart(6, "0");
+	const n = String(doc.count).padStart(6, "0");
 	return `${prefix}-${n.slice(0, 3)}-${n.slice(3)}`; // AD-000-001
 	// no dashes: return `${prefix}${n}`;
 }

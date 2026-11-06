@@ -26,11 +26,10 @@ const userSchema = new mongoose.Schema({
 	role: { type: String, enum: ["student", "admin"], default: "student" },
 });
 
-userSchema.pre("validate", async function (next) {
+userSchema.pre("validate", async function () {
 	if (this.isNew && !this.userId) {
 		this.userId = await nextUserId(this.role);
 	}
-	next();
 });
 
 const User = mongoose.model("User", userSchema);
